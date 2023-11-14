@@ -52,6 +52,45 @@ The query result is:
 | 1507981       | 86                   |
 | ...           | ...                  |
 
+# MongoDB Query
+There are 10 MongoDB query instances inside `MongoDB Queries.txt`, run them in MongoShell to get the query result.\
+
+Here'e one query example:
+
+```bash
+db.seller.aggregate([
+  {
+    $project: {
+      _id: 0,
+      user_id: "$_id",
+      numberOfItemsSold: { $size: "$items_sold" }
+    }
+  },
+  { $sort: { numberOfItemsSold: -1 } }
+]);
+
+db.users.find(
+  { user_id: "131" },
+  {
+    time_stamp: 1,
+    "items._id": 1,
+    "items.cat_id": 1,
+    "items.brand_id": 1
+  }
+);
+```
+
+The query result is:
+
+[
+  { user_id: '1509276', numberOfItemsSold: 93 },
+  { user_id: '1507865', numberOfItemsSold: 87 },
+  { user_id: '1507981', numberOfItemsSold: 86 },
+  { user_id: '1508160', numberOfItemsSold: 80 },
+  { user_id: '1510433', numberOfItemsSold: 75 }
+  ...
+]
+
 
 
 # Traiditional Recommendation Algorithms
