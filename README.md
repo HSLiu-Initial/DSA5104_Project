@@ -70,7 +70,7 @@ The query result is:
 
 # MongoDB Query
 
-Convert sql data into json file so that we can import data into MongoDB.
+Convert sql data into json file so that we can import data into MongoDB:
 
 `sql2mongodb.ipynb`
 
