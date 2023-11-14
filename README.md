@@ -27,7 +27,23 @@ For sample-level retrieval-based methods RIM:
 
 `python run_rim_seq.py`
 
-#  SQL Query
+# DERT and FAISS
+
+Define the encoder for `DERT`:
+
+`RIM.py`
+
+Create Dataset and Dataloader with config file `config_datasets.ini`:
+
+`RIM_SequentialDatasets.py`
+
+`RIM_SequentialDataloader.py`
+
+Load trained model from `hyper.json` and `model.pth` and then encode data:
+
+`Data_embed.ipynb`
+
+# SQL Query
 
 There are 10 MySQL query instances inside `SQL_queries.sql`, run them in the MySQL can get the query result.\
 
@@ -52,6 +68,51 @@ The query result is:
 | 1507981       | 86                   |
 | ...           | ...                  |
 
+# MongoDB Query
+
+Convert sql data into json file so that we can import data into MongoDB:
+
+`sql2mongodb.ipynb`
+
+There are 10 MongoDB query instances inside `MongoDB Queries.txt`, run them in MongoShell to get the query result.\
+
+Here'e one query example:
+
+```bash
+db.seller.aggregate([
+  {
+    $project: {
+      _id: 0,
+      user_id: "$_id",
+      numberOfItemsSold: { $size: "$items_sold" }
+    }
+  },
+  { $sort: { numberOfItemsSold: -1 } }
+]);
+
+db.users.find(
+  { user_id: "131" },
+  {
+    time_stamp: 1,
+    "items._id": 1,
+    "items.cat_id": 1,
+    "items.brand_id": 1
+  }
+);
+```
+
+The query result is:
+
+```json
+[
+  { user_id: '1509276', numberOfItemsSold: 93 },
+  { user_id: '1507865', numberOfItemsSold: 87 },
+  { user_id: '1507981', numberOfItemsSold: 86 },
+  { user_id: '1508160', numberOfItemsSold: 80 },
+  { user_id: '1510433', numberOfItemsSold: 75 }
+  ...
+]
+```
 
 
 # Traiditional Recommendation Algorithms
