@@ -82,13 +82,13 @@ db.users.find(
 
 The query result is:
 
-[
-  { user_id: '1509276', numberOfItemsSold: 93 },
-  { user_id: '1507865', numberOfItemsSold: 87 },
-  { user_id: '1507981', numberOfItemsSold: 86 },
-  { user_id: '1508160', numberOfItemsSold: 80 },
-  { user_id: '1510433', numberOfItemsSold: 75 }
-  ...
+[\
+  { user_id: '1509276', numberOfItemsSold: 93 },\
+  { user_id: '1507865', numberOfItemsSold: 87 },\
+  { user_id: '1507981', numberOfItemsSold: 86 },\
+  { user_id: '1508160', numberOfItemsSold: 80 },\
+  { user_id: '1510433', numberOfItemsSold: 75 }\
+  ...\
 ]
 
 
