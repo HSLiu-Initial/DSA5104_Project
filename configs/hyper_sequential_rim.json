@@ -1,0 +1,32 @@
+{
+  "config": "configs/hyper_sequential_rim.json",
+  "dataset": "taobao",
+  "data_path": "data",
+  "out_path": "output",
+  "seed": 2022,
+  "model": "RIM",
+  "K": 10,
+  "embed_size": 16,
+  "hidden_size": [
+    200,
+    80,
+    1
+  ],
+  "gpu": 1,
+  "use_ddp": false,
+  "epochs": 200,
+  "batch_size": 200,
+  "_wd_": "L2 Regularization for Optimizer",
+  "optim": "AdamW",
+  "wd": 1e-4,
+  "lr": 1e-4,
+  "_lr_decay_": "Exponential decay of learning rate",
+  "decay_cycle": "iter",
+  "decay_sched": "CosineAnnealingWarmRestarts",
+  "num_workers": 8,
+  "early_stop": 5,
+  "dropout": 0.5,
+  "resume": false,
+  "prefix": "auto define",
+  "baseline_auc": 0
+}
