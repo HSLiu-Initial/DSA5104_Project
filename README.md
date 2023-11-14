@@ -27,7 +27,23 @@ For sample-level retrieval-based methods RIM:
 
 `python run_rim_seq.py`
 
-#  SQL Query
+# DERT and FAISS
+
+Define the encoder for `DERT`:
+
+`RIM.py`
+
+Create Dataset and Dataloader with config file `config_datasets.ini`:
+
+`RIM_SequentialDatasets.py`
+
+`RIM_SequentialDataloader.py`
+
+Load trained model from `hyper.json` and `model.pth` and then encode data:
+
+`Data_embed.ipynb`
+
+# SQL Query
 
 There are 10 MySQL query instances inside `SQL_queries.sql`, run them in the MySQL can get the query result.\
 
@@ -53,6 +69,11 @@ The query result is:
 | ...           | ...                  |
 
 # MongoDB Query
+
+Convert sql data into json file so that we can import data into MongoDB.
+
+`sql2mongodb.ipynb`
+
 There are 10 MongoDB query instances inside `MongoDB Queries.txt`, run them in MongoShell to get the query result.\
 
 Here'e one query example:
