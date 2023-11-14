@@ -1,4 +1,4 @@
-A `PyTorch` Implementation of DSA5104 Project
+Implementation of DSA5104 Project
 
 # Data Processing
 
