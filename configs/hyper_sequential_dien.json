@@ -1,0 +1,45 @@
+{
+  "config": "configs/hyper_sequential_dien.json",
+  "prefix": "auto define",
+  "dataset": "taobao",
+  "data_path": "data",
+  "out_path": "output",
+  "seed": 2022,
+  "model": "DIEN",
+
+  "K": 100,
+  "gpu": 1,
+  "embed_size": 16,
+  "use_ddp": false,
+  "epochs": 200,
+  "batch_size": 1000,
+  "_wd_": "L2 Regularization for Optimizer",
+  "wd": 5e-4,
+  "optim": "AdamW",
+  "lr": 5e-3,
+  "_lr_decay_": "Exponential decay of learning rate",
+  "lr_decay": 0.01,
+  "decay_cycle": "iter",
+  "decay_sched": "CosineAnnealingWarmRestarts",
+  "num_workers": 8,
+  "early_stop": 3,
+  "dropout": 0.5,
+  "resume": false,
+  "use_negsampling": true,
+  "use_bn": true,
+  "dnn_hidden_units": [
+    200,
+    80
+  ],
+  "dnn_activation": "relu",
+  "att_hidden_units": [
+    64,
+    16
+  ],
+  "att_activation": "relu",
+  "init_std": 0.0001,
+  "coef_aux": 0,
+  "sparse_len_taobao": 3,
+  "sparse_len_tmall": 7,
+  "gru_type": "AUGRU"
+}
