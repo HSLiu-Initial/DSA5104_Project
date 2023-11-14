@@ -1,0 +1,145 @@
+db.seller.aggregate([
+  {
+    $project: {
+      _id: 0,
+      user_id: "$_id",
+      numberOfItemsSold: { $size: "$items_sold" }
+    }
+  },
+  { $sort: { numberOfItemsSold: -1 } }
+]);
+
+db.users.find(
+  { user_id: "131" },
+  {
+    time_stamp: 1,
+    "items._id": 1,
+    "items.cat_id": 1,
+    "items.brand_id": 1
+  }
+);
+
+db.users.aggregate([
+  { $unwind: "$actions" },
+  { $match: { "actions.action_type": "1519052" } }, 
+  { $unwind: "$items" },
+  {
+    $group: {
+      _id: { age_range: "$age_range", brand_id: "$items.brand_id" }, 
+      click_count: { $sum: 1 }
+    }
+  },
+  {
+    $sort: {click_count: -1 , "_id.age_range": 1 }
+  },
+  {
+    $project: {
+      _id: 0,
+      age_range: "$_id.age_range",
+      brand_id: "$_id.brand_id",
+      click_count: "$click_count"
+    }
+  }
+]);
+
+db.users.aggregate([
+    { $match: { "actions.action_type": "1519052" } },
+    { $unwind: "$items" },
+    { $unwind: "$actions" },
+    { $group: {
+        _id: { age_range: "$age_range", cat_id: "$items.cat_id" },
+        click_count: { $sum: 1 }
+    }},
+    { $sort: { click_count: -1 } },
+    { $limit: 1 }
+]);
+
+db.users.aggregate([
+    { $match: { "actions.action_type": "1519052" } },
+    { $unwind: "$items" },
+    { $unwind: "$actions" },
+    { $match: { "items.brand_id": "1511035"} },
+    { $group: {
+        _id: { gender: "$gender", brand_id: "$items.brand_id" },
+        click_count: { $sum: 1 }
+    }},
+    { $sort: { click_count: -1 } }
+]);
+
+db.users.aggregate([
+    { $unwind: "$actions" },
+    { $match: { "actions.action_type": "1519052" } },
+    { $unwind: "$items" },
+    { $match: { "items.brand_id": "1511035"} },
+    { $group: {
+        _id: "$gender", brand_id: { $first: "$items.brand_id" },
+        click_count: { $sum: 1 }
+    }},
+    { $sort: { click_count: -1 } },
+    { $project: {_id:0, gender:"$_id", brand_id:1, click_count:1}}
+]);
+
+db.users.aggregate([
+    { $unwind: "$actions" },
+    { $unwind: "$items" },
+    { $match: {
+        "actions.action_type": "1519052",
+        "items.brand_id": "1511076"
+    }},
+    { $project: {
+        _id: 0,
+        user_id: "$user_id",
+        item_id: "$actions.item_id",
+        time_stamp: "$actions.time_stamp"
+    }}
+]);
+
+db.users.aggregate([
+    { $unwind: "$actions" },
+    { $match: { "actions.action_type": "1519052" } },
+    { $group: {
+        _id: "$user_id",
+        click_count: { $sum: 1 }
+    }},
+    { $sort: { click_count: -1 } },
+    { $limit: 10 },
+    { $project: {
+        _id: 0,
+        user_id: "$_id",
+        click_count: 1
+    }}
+]);
+
+db.users.aggregate([
+    { $unwind: "$actions" },
+    { $match: { "actions.action_type": "1519052" } },
+    { $group: {
+        _id: "$actions.item_id",
+        click_count: { $sum: 1 }
+    }},
+    { $sort: { click_count: -1 } },
+    { $limit: 10 }
+]);
+
+db.users.aggregate([
+    { $unwind: "$actions" },
+    { $unwind: "$items" },
+    { $match: {
+        "actions.action_type": "1519052",
+        "items.cat_id": "1504652"
+    }},
+    { $group: {
+        _id: {
+            user_id: "$user_id",
+            brand_id: "$items.brand_id"
+        },
+        click_count: { $sum: 1 }
+    }},
+    { $sort: { click_count: -1 } },
+    { $project: {
+        _id: 0,
+        user_id: "$_id.user_id",
+        brand_id: "$_id.brand_id",
+        click_count: 1
+    }}
+]);
